@@ -1,0 +1,59 @@
+== Hadoop DFS (HDFS) bindings for Ruby
+
+This library provides native C bindings to Hadoop's libhdfs, for interacting with Hadoop DFS.
+
+=== Requirements
+
+You will need:
+
+* Java JDK and JRE (yes, both). The build file will attempt to find it for you.
+* Hadoop's libhdfs. On Ubuntu/Debian you will need libhdfs0 and libhdfs0-dev.
+* Hadoop Core and DFS libraries.
+
+=== Installation
+
+Install from gems. Note that you will need to provide JAVA_HOME so the compiler can find the
+required libraries.
+
+The installation will attempt to discover the location of the libaries, but if it fails, 
+you can try setting the environment variable JAVA_LIB to the library path of the JDK/JRE.
+
+Installing with a specific Java JDK:
+
+  sudo env JAVA_HOME=/usr/lib/jvm/java-6-openjdk gem install ruby-hdfs
+  
+=== Using
+  
+The library also depends on an installation of Hadoop DFS. The Cloudera distribution of 
+Hadoop is pretty good:
+
+  http://www.cloudera.com/distribution
+  
+Sample classpath setup (yes, welcome to JAR hell):
+
+  export CLASSPATH=$CLASSPATH:/usr/lib/hadoop/hadoop-0.18.3-6cloudera0.3.0-core.jar
+  for jarfile in /usr/lib/hadoop/lib/*.jar; do
+    export CLASSPATH=$CLASSPATH:$jarfile
+  done
+
+Wait, there's more. You will also need libjvm.so in your library path, which comes with 
+the JRE. This might work:
+
+  export LD_LIBRARY_PATH=/usr/lib/jvm/java-6-openjdk/jre/lib/i386/server
+
+=== Known issues
+
+libhdfs will sometimes throw exceptions, which will be output instead of caught by Ruby.
+This is annoying but harmless.
+
+=== Building from source
+
+To build from source:
+
+  rake compile
+ 
+On completion, the compiled extension will be available in ext/hdfs.
+
+== Copyright
+
+Copyright (c) 2010 Alexander Staubo. See LICENSE for details.

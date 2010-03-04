@@ -1,0 +1,22 @@
+# MacOS X
+.DS_Store
+
+# Emacs
+*~
+\#*
+.\#*
+
+# Vim
+*.swp
+
+# General
+coverage
+rdoc
+pkg
+
+# Project-specific
+*.bak
+/ext/hdfs/Makefile
+/ext/hdfs/*.log
+*.o
+*.so
