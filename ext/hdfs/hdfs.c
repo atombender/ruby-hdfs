@@ -104,6 +104,13 @@ VALUE HDFS_File_System_exist(VALUE self, VALUE path) {
   return value == 0 ? Qtrue : Qfalse;
 }
 
+VALUE HDFS_File_System_create_directory(VALUE self, VALUE path) {
+  FSData* data = NULL;
+  Data_Get_Struct(self, FSData, data);
+  int value = hdfsCreateDirectory(data->fs, RSTRING_PTR(path));
+  return value == 0 ? Qtrue : Qfalse;
+}
+
 /**
  * call-seq:
  *    hdfs.open -> file
@@ -230,6 +237,7 @@ void Init_hdfs() {
   rb_define_method(c_file_system, "open", HDFS_File_System_open, 3);
   rb_define_method(c_file_system, "delete", HDFS_File_System_delete, 1);
   rb_define_method(c_file_system, "exist?", HDFS_File_System_exist, 1);
+  rb_define_method(c_file_system, "create_directory", HDFS_File_System_create_directory, 1);
 
   c_file = rb_define_class_under(m_dfs, "File", rb_cObject);
   rb_define_method(c_file, "read", HDFS_File_read, 1);
