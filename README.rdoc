@@ -43,6 +43,8 @@ the JRE. This might work:
 
 === Known issues
 
+Not all APIs have been implemented yet.
+
 libhdfs will sometimes throw exceptions, which will be output instead of caught by Ruby.
 This is annoying but harmless.
 
